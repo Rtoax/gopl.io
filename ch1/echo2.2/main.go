@@ -16,12 +16,13 @@ func main() {
 	// := 是声明字符串
 	s, sep := "", ""
 	//一般采用_ 放上没用的参数
-	// 并且 _ 不能直接使用
+	// 并且 _ 不能直接使用, 改称 line 使用
 	// 1: 从第一个开始
-	for _, arg := range os.Args[1:] {
+	for line, arg := range os.Args[1:] {
 		//fmt.Println(_)
 		s += sep + arg
 		sep = " "
+		fmt.Printf("%d %s\n", line, arg)
 	}
 	fmt.Println(s)
 }

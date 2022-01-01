@@ -14,6 +14,8 @@ import (
 
 //!+
 func main() {
+	// 使用 join 汉书 将字符串连接
+	// 这里不需要 for 循环
 	fmt.Println(strings.Join(os.Args[1:], " "))
 }
 
