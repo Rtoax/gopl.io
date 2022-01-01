@@ -9,6 +9,8 @@ package tempconv
 
 import "fmt"
 
+// 和 c语言的 typedef 差不多
+// typedef struct test test_t;
 type Celsius float64
 type Fahrenheit float64
 
