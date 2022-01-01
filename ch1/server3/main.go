@@ -19,8 +19,10 @@ func main() {
 
 //!+handler
 // handler echoes the HTTP request.
+// 分析 http 请求格式
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "%s %s %s\n", r.Method, r.URL, r.Proto)
+	// 遍历所有 http 头
 	for k, v := range r.Header {
 		fmt.Fprintf(w, "Header[%q] = %q\n", k, v)
 	}

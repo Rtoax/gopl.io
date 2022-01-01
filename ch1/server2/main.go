@@ -14,17 +14,22 @@ import (
 	"sync"
 )
 
+// 添加互斥锁🔓
 var mu sync.Mutex
 var count int
 
 func main() {
+	// 处理一次 "/" 访问
 	http.HandleFunc("/", handler)
+	// 处理一次 count 访问 
 	http.HandleFunc("/count", counter)
+	// 失败
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
 
 // handler echoes the Path component of the requested URL.
 func handler(w http.ResponseWriter, r *http.Request) {
+	// 互斥
 	mu.Lock()
 	count++
 	mu.Unlock()

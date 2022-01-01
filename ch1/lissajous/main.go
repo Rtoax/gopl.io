@@ -6,6 +6,7 @@
 //!+main
 
 // Lissajous generates GIF animations of random Lissajous figures.
+// 上来就和我正这么复杂的，尼采我会不会
 package main
 
 import (
@@ -31,6 +32,7 @@ import (
 var palette = []color.Color{color.White, color.Black}
 
 const (
+	// 画版中的两种颜色
 	whiteIndex = 0 // first color in palette
 	blackIndex = 1 // next color in palette
 )
@@ -42,11 +44,15 @@ func main() {
 	// Thanks to Randall McPherson for pointing out the omission.
 	rand.Seed(time.Now().UTC().UnixNano())
 
+	// 制定使用 web 
 	if len(os.Args) > 1 && os.Args[1] == "web" {
 		//!+http
+		// 一个简单的 http服务 把 git 图片写上去
 		handler := func(w http.ResponseWriter, r *http.Request) {
 			lissajous(w)
 		}
+		// 当在 地址栏重新多输入 / 时候，会重新加载
+		// localhost:8000/
 		http.HandleFunc("/", handler)
 		//!-http
 		log.Fatal(http.ListenAndServe("localhost:8000", nil))
@@ -64,18 +70,25 @@ func lissajous(out io.Writer) {
 		nframes = 64    // number of animation frames
 		delay   = 8     // delay between frames in 10ms units
 	)
+	// 随机数
 	freq := rand.Float64() * 3.0 // relative frequency of y oscillator
+	// 创建 gif 
 	anim := gif.GIF{LoopCount: nframes}
 	phase := 0.0 // phase difference
+	// 一共 64 帧
 	for i := 0; i < nframes; i++ {
+		// 方块
 		rect := image.Rect(0, 0, 2*size+1, 2*size+1)
+		// 图像
 		img := image.NewPaletted(rect, palette)
+		// 公式
 		for t := 0.0; t < cycles*2*math.Pi; t += res {
 			x := math.Sin(t)
 			y := math.Sin(t*freq + phase)
 			img.SetColorIndex(size+int(x*size+0.5), size+int(y*size+0.5),
 				blackIndex)
 		}
+		// 相位递增-微分过程
 		phase += 0.1
 		anim.Delay = append(anim.Delay, delay)
 		anim.Image = append(anim.Image, img)
