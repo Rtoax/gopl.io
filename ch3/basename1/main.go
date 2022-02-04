@@ -32,6 +32,7 @@ func basename(s string) string {
 		}
 	}
 	// Preserve everything before last '.'.
+	// 去除扩展名
 	for i := len(s) - 1; i >= 0; i-- {
 		if s[i] == '.' {
 			s = s[:i]

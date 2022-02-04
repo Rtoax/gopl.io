@@ -20,7 +20,7 @@ func intsToString(values []int) string {
 		if i > 0 {
 			buf.WriteString(", ")
 		}
-		fmt.Fprintf(&buf, "%d", v)
+		fmt.Fprintf(&buf, "-%d-", v)
 	}
 	buf.WriteByte(']')
 	return buf.String()

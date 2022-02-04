@@ -25,6 +25,7 @@ func main() {
 // e.g., a => a, a.go => a, a/b/c.go => c, a/b.c.go => b.c
 //!+
 func basename(s string) string {
+	// 直接去除
 	slash := strings.LastIndex(s, "/") // -1 if "/" not found
 	s = s[slash+1:]
 	if dot := strings.LastIndex(s, "."); dot >= 0 {
